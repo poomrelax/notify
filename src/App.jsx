@@ -7,8 +7,8 @@ import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
-
-  useEffect(() => {
+  
+  async function send() {
     const parser = new UAParser()
     const result = parser.getResult()
 
@@ -16,8 +16,14 @@ function App() {
       text: result
     }
 
-    // axios.post('http://localhost:2553/notify/', data)
-  })
+    await axios.post('https://homework-api-9ftf.onrender.com/notify/', data).then((r) => {
+      console.log(r.data)
+    })
+  }
+
+  useEffect(() => {
+    send()
+  }, [])
 
   return (
     <>
